@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>X-Courseify — Turn X posts into structured mini-courses</title>
+    <meta
+      name="description"
+      content="X-Courseify turns X.com threads and videos into structured mini-courses with lesson chunks, summaries and takeaway checklists. Dark mode included."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Cpath d='M9 22V10h3.1l4.2 7.2L20.4 10H23v12h-2.6v-7.3L16.6 22h-1.5l-3.6-7.3V22H9z' fill='white'/%3E%3C/svg%3E"
+    />
+    <!--
+      Theme bootstrap: runs before first paint so the persisted "dark" class is applied
+      to <html> without a flash of light content. Keep this inline and synchronous.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = window.localStorage.getItem('x-courseify:theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored === 'light' || stored === 'dark' ? stored : prefersDark ? 'dark' : 'light';
+          var root = document.documentElement;
+          root.classList.toggle('dark', theme === 'dark');
+          root.setAttribute('data-theme', theme);
+          root.style.colorScheme = theme;
+        } catch (error) {
+          /* Private browsing or blocked storage — fall back to the light theme. */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
