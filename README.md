@@ -44,6 +44,15 @@ X-Courseify ships with two ways to build a curriculum:
    provider fails, the local engine silently takes over and the UI explains why in a
    non-blocking notice.
 
+### Browser-direct calls
+
+Both remote providers are called **from the browser** with your key — there is no proxy
+in between. Gemini's `generateContent` is CORS-enabled for browser use, and OpenAI's API
+serves `access-control-allow-origin: *` on its routes, so a normal browser build works.
+If a network, provider outage, quota limit or bad key blocks the request, the build does
+not dead-end: the built-in engine finishes the course and the UI spells out what the
+provider said.
+
 ### API key handling
 
 - The key is stored **in your browser only** — `localStorage` when "Remember key on this

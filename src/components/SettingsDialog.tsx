@@ -14,8 +14,12 @@ const PROVIDERS: ProviderId[] = ['local', 'openai', 'gemini'];
 
 const PROVIDER_HINTS: Record<ProviderId, string> = {
   local: 'No key required. Fully offline curriculum builder that runs in this tab.',
-  openai: 'Uses your key against api.openai.com/v1/chat/completions with JSON mode.',
-  gemini: 'Uses your key against generativelanguage.googleapis.com (v1beta generateContent).',
+  openai:
+    'Calls api.openai.com/v1/chat/completions (JSON mode) straight from your browser with your key.',
+  gemini:
+    'Calls generativelanguage.googleapis.com (v1beta generateContent) straight from your browser with your key.',
+  // Both remote providers run browser-direct. If a network or provider blocks the
+  // request (CORS, quota, bad key) the build degrades to the built-in engine.
 };
 
 export function SettingsDialog({ open, settings, onClose, onSave }: SettingsDialogProps) {
